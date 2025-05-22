@@ -81,9 +81,13 @@ def max_point(skymap):
     return points_sorted[-1]
 
 def max_portion(skymap,portion):
+    print("portion:", portion)
     points_sorted=rank_points(skymap)
     len_ps=len(points_sorted)
+    print("len_ps:", len_ps)
     n=int(portion*len_ps)
+    print("n:", n)
+    print("len(result)", len(points_sorted[-n:]))
     return points_sorted[-n:]
 
 def angular_separation_deg(point_ranked, point_test):
@@ -112,15 +116,26 @@ def angular_separation_deg_sorted(points_sorted_l, point_test):
     angular_separations_sorted = angular_separations_list[indices_sorted]
     return angular_separations_sorted
 
-def angular_separation_min_in_list(points_sorted_l, point_test):
+def angular_separation_min_in_list(points_sorted_l, point_test, debug=False):
     n_l = len(points_sorted_l)
-    angular_separations_list=np.zeros((n_l, 2))
+    angular_separations_list=[]
+    #print(points_sorted_l)
     for i in range(n_l):
-        angular_separations_list[i][1]=angular_separation_deg(points_sorted_l[i], point_test)
-        angular_separations_list[i][0]=points_sorted_l[i][1] 
-    indices_sorted=np.lexsort((angular_separations_list[:,1], angular_separations_list[:,0]))
-    angular_separations_sorted = angular_separations_list[indices_sorted]
-    return angular_separations_sorted[0][0]
+        angular_separations_list.append(angular_separation_deg(points_sorted_l[i], point_test))
+    print(angular_separations_list)
+    min_in_sep_list = min(angular_separations_list)
+    #print(min_in_sep_list)
+    #angular_separations_list=np.zeros((n_l, 2))
+    #for i in range(n_l):
+    #    angular_separations_list[i][1]=angular_separation_deg(points_sorted_l[i], point_test)
+    #    angular_separations_list[i][0]=points_sorted_l[i][1] 
+    #indices_sorted=np.lexsort((angular_separations_list[:,1], angular_separations_list[:,0]))
+    #angular_separations_sorted = angular_separations_list[indices_sorted]
+    #if debug ==True:
+    #    print(points_sorted_l)
+    #    print(angular_separations_list)
+    #    print(angular_separations_sorted)
+    return min_in_sep_list
     
     
 

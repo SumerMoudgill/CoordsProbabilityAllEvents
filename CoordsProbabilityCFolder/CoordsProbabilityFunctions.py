@@ -162,3 +162,38 @@ def superevent_array_map(event_array, event_name, file_location="./O4a_fits/"):
         plot_tuple=CoordsScatter(c_array, superevent_skymap, filename_d)
         #current_detector=current_detector+1
 
+def get_all_null_coords(timeJulian, detectors):
+    current_detector = 0
+    timeJulian=float(timeJulian)
+    cf_list_H1=[]
+    cf_list_L1=[]
+    cf_list_V1=[]
+    if "H1" in detectors:
+        cf_list_H1=[[],[],[],[]]
+        detector_stats=H1_detector_stats
+        c_array=getMinimaAtJDTArray(detector_stats, timeJulian)
+        for i in range(4):
+            current_coords=c_array[i]
+            cf_list_H1[i]=current_coords.tolist()
+        current_detector=current_detector+1
+        #print("H1 done")
+    if "L1" in detectors:
+        cf_list_L1=[[],[],[],[]]
+        detector_stats=L1_detector_stats
+        c_array=getMinimaAtJDTArray(detector_stats, timeJulian)
+        for i in range(4):
+            current_coords=c_array[i]
+            cf_list_L1[i]=current_coords.tolist()
+        current_detector=current_detector+1
+        #print("L1 done")
+    if "V1" in detectors:
+        cf_list_V1=[[],[],[],[]]
+        detector_stats=V1_detector_stats
+        c_array=getMinimaAtJDTArray(detector_stats, timeJulian)
+        for i in range(4):
+            current_coords=c_array[i]
+            cf_list_V1[i]=current_coords.tolist()
+        current_detector=current_detector+1
+    cf_list = [cf_list_H1, cf_list_L1, cf_list_V1]
+    return cf_list
+    
