@@ -58,19 +58,39 @@ for i in range(len(O4a_May_events_1)):
     print("Event name: ", current_superevent_array[0])
     print("Event time: ", current_superevent_array[2])
     print("Detectors list: ", which_detectors(current_superevent_array[3]))
+    n_detectors=len(which_detectors(current_superevent_array[3]))
     res_p, res_sf, res_c, res_f=superevent_to_probabilities(current_superevent_array, file_location="./O4a_fits/")
     print("Probabilities list: ", res_p)
     print("Significant figures list: ", res_sf)
     print("Coordinates list: ", res_c)
     print("Flags list: ", res_f)
+    cf_list=get_all_null_coords(current_superevent_array[2], which_detectors(current_superevent_array[3]))
     res_maxpoint = max_point(current_superevent_read)
     print("Max point: ", res_maxpoint)
-    for i in res_f:
-        for j in i:
-            if len(j) !=0:
-                print("j:", j)
-                res_sep_min_s=angular_separation_deg(res_maxpoint, j)
-                print("angular separation from maximum: ", res_sep_min_s)
+    print("all null points: ", cf_list)
+    res_sep_min_s=np.zeros((3, 4))
+    res_sep_min_50=np.zeros((3, 4))
+    res_sep_min_90=np.zeros((3, 4))
+    print(res_f)
+    print(type(res_f))
+    for i in range(len(res_f)):
+        for j in range(len(res_f[i])):
+            #print("j: ", j)
+            if len(cf_list[i][j]) != 0:
+                res_sep_min_s[i][j]=angular_separation_deg(res_maxpoint, cf_list[i][j])
+    portion_50=max_portion(current_superevent_read, 0.5)
+    portion_90=max_portion(current_superevent_read, 0.9)
+    for i in range(len(res_f)):
+        for j in range(len(res_f[i])):
+            if len(cf_list[i][j]) != 0:
+                res_sep_min_50[i][j]=angular_separation_min_in_list(portion_50, cf_list[i][j])
+    for i in range(len(res_f)):
+        for j in range(len(res_f[i])):
+            if len(cf_list[i][j]) != 0:
+                res_sep_min_90[i][j]=angular_separation_min_in_list(portion_90, cf_list[i][j])
+    print("angular separations from maximum: ", res_sep_min_s.tolist())
+    print("angular separations from 90% area: ", res_sep_min_90.tolist())
+    print("angular separations from 50% area: ", res_sep_min_50.tolist())
     print("RES.OUT")
     #print("90% probability area: ", get_area("./O4A_fits/", current_superevent_array, area_percent=90))
     superevent_array_map(current_superevent_array, current_superevent_array[0], file_location="./O4a_fits/") 
