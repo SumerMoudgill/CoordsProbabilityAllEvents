@@ -6,8 +6,6 @@ from hpmoc import PartialUniqSkymap
 from hpmoc.plot import get_wcs, plot, gridplot
 import sys
 from CoordsProbabilityCFolder.DetectorMinima import *
-from astropy.coordinates import angular_separation
-from astropy.coordinates import SkyCoord
 #from PercentAreaFolder.PercentArea import *
 from CoordsProbabilityCFolder.O4aSuperevents import *
 #from CoordsProbabilityFolder.CoordsProbabilityModule import *
@@ -90,13 +88,26 @@ def max_portion(skymap,portion):
     print("len(result)", len(points_sorted[-n:]))
     return points_sorted[-n:]
 
+#def angular_separation_deg(point_ranked, point_test):
+#    print("declination of test point:", point_test[0])
+#    print("ra of test point:", point_test[1])
+#    print("declination of ranked point:", point_ranked[2])
+#    print("ra of ranked point:", point_ranked[3])
+#    dec_rad=np.deg2rad(point_test[0])
+#    ra_rad=np.deg2rad(point_test[1])
+#    point_dec_rad=np.deg2rad(point_ranked[2])
+#    point_ra_rad=np.deg2rad(point_ranked[3])
+#    sep_rad=angular_separation(dec_rad, ra_rad, point_dec_rad, point_ra_rad)
+#    return np.rad2deg(sep_rad)
+
 def angular_separation_deg(point_ranked, point_test):
     dec_rad=np.deg2rad(point_test[0])
     ra_rad=np.deg2rad(point_test[1])
     point_dec_rad=np.deg2rad(point_ranked[2])
     point_ra_rad=np.deg2rad(point_ranked[3])
-    sep_rad=angular_separation(dec_rad, ra_rad, point_dec_rad, point_ra_rad)
-    return np.rad2deg(sep_rad)
+    sep_rad=np.arccos((np.sin(dec_rad)*np.sin(point_dec_rad))+(np.cos(dec_rad)*np.cos(point_dec_rad)*np.cos(point_ra_rad-ra_rad)))
+    sep_deg=np.rad2deg(sep_rad)
+    return sep_deg
 
 def angular_separation_deg_area(points_sorted_l, point_test):
     n_l = len(points_sorted_l)
@@ -122,7 +133,7 @@ def angular_separation_min_in_list(points_sorted_l, point_test, debug=False):
     #print(points_sorted_l)
     for i in range(n_l):
         angular_separations_list.append(angular_separation_deg(points_sorted_l[i], point_test))
-    print(angular_separations_list)
+    #print(angular_separations_list)
     min_in_sep_list = min(angular_separations_list)
     #print(min_in_sep_list)
     #angular_separations_list=np.zeros((n_l, 2))

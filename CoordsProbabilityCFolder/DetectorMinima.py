@@ -1,12 +1,8 @@
 import numpy as np
 import math
-import sys
-from hpmoc import PartialUniqSkymap
-from hpmoc.plot import get_wcs, plot, gridplot
 from pathlib import Path
 from matplotlib import pyplot as plt
 from astropy.table import Table
-from hpmoc.points import PointsTuple, Rgba
 #import astropy.units
 #from astropy.coordinates import AltAz, EarthLocation, SkyCoord
 #from astropy.time import Time
@@ -158,35 +154,47 @@ def getMinimaAtJDTArray (detector_stats, timeJulian, epoch=2451545.0, zero_at_ep
         c_array[i][1]=s_coords[1]
     return c_array
 
-def CoordsTuple (coords_array, dispersion=3.0):
-    '''
-    Converts an array of four [latitude, longitude] coordinates into an astropy PointsTuple.
-    '''
-    len_c = len(coords_array)
-    pts1=PointsTuple(
-        [
-            (coords_array[0][1], coords_array[0][0], dispersion),
-            (coords_array[1][1], coords_array[1][0], dispersion),
-            (coords_array[2][1], coords_array[2][0], dispersion),
-            (coords_array[3][1], coords_array[3][0], dispersion),
-        ]
-    )
-    return pts1
+def get_all_null_coords(timeJulian, detectors):
+    current_detector = 0
+    timeJulian=float(timeJulian)
+    cf_list_H1=[]
+    cf_list_L1=[]
+    cf_list_V1=[]
+    if "H1" in detectors:
+        cf_list_H1=[[],[],[],[]]
+        detector_stats=H1_detector_stats
+        c_array=getMinimaAtJDTArray(detector_stats, timeJulian)
+        for i in range(4):
+            current_coords=c_array[i]
+            cf_list_H1[i]=current_coords.tolist()
+        current_detector=current_detector+1
+        #print("H1 done")
+    if "L1" in detectors:
+        cf_list_L1=[[],[],[],[]]
+        detector_stats=L1_detector_stats
+        c_array=getMinimaAtJDTArray(detector_stats, timeJulian)
+        for i in range(4):
+            current_coords=c_array[i]
+            cf_list_L1[i]=current_coords.tolist()
+        current_detector=current_detector+1
+        #print("L1 done")
+    if "V1" in detectors:
+        cf_list_V1=[[],[],[],[]]
+        detector_stats=V1_detector_stats
+        c_array=getMinimaAtJDTArray(detector_stats, timeJulian)
+        for i in range(4):
+            current_coords=c_array[i]
+            cf_list_V1[i]=current_coords.tolist()
+        current_detector=current_detector+1
+    cf_list = [cf_list_H1, cf_list_L1, cf_list_V1]
+    return cf_list
 
-def CoordsScatter (coords_array, skymap_m, filename, dispersion=3.0):
-    '''
-    Places a PointsTuple of an array of four [latitude, longitude] coordinates on a skymap.
-    '''
-    len_c = len(coords_array)
-    skymap_m.plot(CoordsTuple(coords_array, dispersion))
-    plt.savefig(filename+".png")
 
 H1_detector_stats = [46.5, -119.5, -36, -126]
 L1_detector_stats = [30.5, -90.75, 162, 252]
 V1_detector_stats = [43.5, 10.5, 19, -71]
 J2000=2451545.0
 GW170817_JDT=2457983.028518
-
 
 
 #Hanford
