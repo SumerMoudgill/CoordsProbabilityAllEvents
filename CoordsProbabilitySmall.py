@@ -10,6 +10,7 @@ from CoordsProbabilityCFolder.RankPoints import *
 from CoordsProbabilityCFolder.O4aSuperevents import *
 from CoordsProbabilityCFolder.CoordsProbabilityFunctions import *
 from CoordsProbabilityCFolder.SupereventRead import *
+from CoordsProbabilityCFolder.DetectorMinimaSkymap import *
 #nesting:
 #superevent_to_probabilities
 #   which_detectors
@@ -80,17 +81,17 @@ for i in range(len(O4a_May_events_1)):
                 res_sep_min_s[i][j]=angular_separation_deg(res_maxpoint, cf_list[i][j])
     portion_50=max_portion(current_superevent_read, 0.5)
     portion_90=max_portion(current_superevent_read, 0.9)
-    for i in range(len(res_f)):
-        for j in range(len(res_f[i])):
-            if len(cf_list[i][j]) != 0:
-                res_sep_min_50[i][j]=angular_separation_min_in_list(portion_50, cf_list[i][j])
-    for i in range(len(res_f)):
-        for j in range(len(res_f[i])):
-            if len(cf_list[i][j]) != 0:
-                res_sep_min_90[i][j]=angular_separation_min_in_list(portion_90, cf_list[i][j])
+    #for i in range(len(res_f)):
+    #    for j in range(len(res_f[i])):
+    #        if len(cf_list[i][j]) != 0:
+    #            res_sep_min_50[i][j]=angular_separation_min_in_list(portion_50, cf_list[i][j])
+    #for i in range(len(res_f)):
+    #    for j in range(len(res_f[i])):
+    #        if len(cf_list[i][j]) != 0:
+    #            res_sep_min_90[i][j]=angular_separation_min_in_list(portion_90, cf_list[i][j])
     print("angular separations from maximum: ", res_sep_min_s.tolist())
-    print("angular separations from 90% area: ", res_sep_min_90.tolist())
-    print("angular separations from 50% area: ", res_sep_min_50.tolist())
+    #print("angular separations from 90% area: ", res_sep_min_90.tolist())
+    #print("angular separations from 50% area: ", res_sep_min_50.tolist())
     print("RES.OUT")
     #print("90% probability area: ", get_area("./O4A_fits/", current_superevent_array, area_percent=90))
     superevent_array_map(current_superevent_array, current_superevent_array[0], file_location="./O4a_fits/") 
