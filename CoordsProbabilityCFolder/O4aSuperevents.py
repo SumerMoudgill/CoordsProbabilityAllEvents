@@ -977,13 +977,3 @@ O4a_Jan_events_1=np.array([['S240101l', 1, 2460310.6662731483, 'H1L1'],
                            ['S240115ao', 1, 2460325.381238426, 'H1L1'],
                            ['S240116o', 1, 2460325.6823958335, 'H1L1'],
                            ['S240116p', 1, 2460325.6832291665, 'H1L1']])
-
-
-
-
-def which_detectors(detectors_string, detectors=["H1","L1","V1"]):
-    detectors_list=[]
-    for i in detectors:
-        if i in detectors_string:
-            detectors_list.append(i)
-    return detectors_list
