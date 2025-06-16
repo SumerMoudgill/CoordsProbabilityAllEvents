@@ -8,6 +8,7 @@ from CoordsProbabilityCFolder.DetectorMinima import *
 from CoordsProbabilityCFolder.RankPoints import *
 from CoordsProbabilityCFolder.O4aSuperevents import *
 from CoordsProbabilityCFolder.DetectorMinimaSkymap import *
+from CoordsProbabilityCFolder.ConversionF import *
 def match_coords(ra, dec, z_ra, z_dec, sigfigs, sigfig_final):
     #print(str(sigfigs)+" significant figures")
     n_coords=len(ra)

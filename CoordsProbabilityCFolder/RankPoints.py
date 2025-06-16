@@ -7,7 +7,7 @@ from hpmoc.plot import get_wcs, plot, gridplot
 import sys
 from CoordsProbabilityCFolder.DetectorMinima import *
 #from PercentAreaFolder.PercentArea import *
-from CoordsProbabilityCFolder.O4aSuperevents import *
+#from CoordsProbabilityCFolder.O4aSuperevents import *
 #from CoordsProbabilityFolder.CoordsProbabilityModule import *
 def single_pixel_to_probability(skymap_coord):
     #print("printing skymap coord")
