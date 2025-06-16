@@ -3,6 +3,7 @@ import math
 from CoordsProbabilityCFolder.PercentArea import *
 from CoordsProbabilityCFolder.O4aSuperevents import *
 from CoordsProbabilityCFolder.DetectorMinima import *
+from CoordsProbabilityCFolder.ConversionF import *
 import pandas as pd
 
 iterator0 = 0
@@ -11,10 +12,10 @@ area_90_list = []
 area_50_list = []
 sep_90_list = []
 sep_50_list = []
-print("len(O4a_Aug_events_1):", len(O4a_Aug_events_1))
-for i in range(len(O4a_Aug_events_1)):
+print("len(O4a_May_events_1):", len(O4a_May_events_1))
+for i in range(len(O4a_May_events_1)):
     print("iterator:", iterator0)
-    current_superevent_array=O4a_Aug_events_1[i]
+    current_superevent_array=O4a_May_events_1[i]
     print("Event name: ", current_superevent_array[0])
     nameslist.append(current_superevent_array[0])
     print("Event time: ", current_superevent_array[2])
@@ -47,5 +48,5 @@ for i in range(len(O4a_Aug_events_1)):
 results_d = {'Event name':nameslist, '90% area':area_90_list, '50% area':area_50_list, 'distances from 90% area':sep_90_list, 'distances from 50% area':sep_50_list}
 results_df = pd.DataFrame(data=results_d)
 print(results_df)
-results_df.to_excel("Aug_events_1_AD.xlsx") 
+results_df.to_excel("May_events_1_AD_test.xlsx") 
         

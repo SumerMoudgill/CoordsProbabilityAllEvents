@@ -11,6 +11,7 @@ from CoordsProbabilityCFolder.O4aSuperevents import *
 from CoordsProbabilityCFolder.CoordsProbabilityFunctions import *
 from CoordsProbabilityCFolder.SupereventRead import *
 from CoordsProbabilityCFolder.DetectorMinimaSkymap import *
+from CoordsProbabilityCFolder.ConversionF import *
 import pandas as pd
 
 #nesting:
@@ -63,8 +64,8 @@ f_column = []
 cf_column = []
 maxpoint_column = []
 max_sep_column = []
-for i in range(len(O4a_Sep_events_1)):
-    current_superevent_array=O4a_Sep_events_1[i]
+for i in range(len(O4a_May_events_1)):
+    current_superevent_array=O4a_May_events_1[i]
     current_superevent_read=superevent_read(current_superevent_array)
     #print("Event name: ", current_superevent_array[0])
     namescolumn.append(current_superevent_array[0])
@@ -103,4 +104,4 @@ for i in range(len(O4a_Sep_events_1)):
 results_d = {'Event name':namescolumn, 'Event time':timescolumn, 'Detectors':detectorscolumn, 'Probabilities':p_column, 'Significant figures':sf_column, 'Flags':f_column, 'All null points':cf_column, 'Max point':maxpoint_column, 'Separations from maximum point':max_sep_column}
 results_df=pd.DataFrame(data=results_d)
 print(results_df)
-results_df.to_excel("Sep_events_1_CPSP.xlsx") 
+results_df.to_excel("May_events_1_CPSP_test.xlsx") 

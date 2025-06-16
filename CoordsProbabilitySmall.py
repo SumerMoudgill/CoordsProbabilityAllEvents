@@ -11,6 +11,7 @@ from CoordsProbabilityCFolder.O4aSuperevents import *
 from CoordsProbabilityCFolder.CoordsProbabilityFunctions import *
 from CoordsProbabilityCFolder.SupereventRead import *
 from CoordsProbabilityCFolder.DetectorMinimaSkymap import *
+from CoordsProbabilityCFolder.ConversionF import *
 #nesting:
 #superevent_to_probabilities
 #   which_detectors

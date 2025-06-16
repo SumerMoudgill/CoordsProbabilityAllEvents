@@ -3,16 +3,20 @@ import math
 from CoordsProbabilityCFolder.PercentArea import *
 from CoordsProbabilityCFolder.O4aSuperevents import *
 from CoordsProbabilityCFolder.DetectorMinima import *
+from CoordsProbabilityCFolder.ConversionF import *
 
+iterator0 = 0
+print("len(O4a_May_events_1):", len(O4a_May_events_1))
 for i in range(len(O4a_May_events_1)):
+    print("iterator:", iterator0)
     current_superevent_array=O4a_May_events_1[i]
     print("Event name: ", current_superevent_array[0])
     print("Event time: ", current_superevent_array[2])
     file_location="Downloads/CoordsProbabilityAllEvents/O4a_fits/"
     superevent_fits=file_location+current_superevent_array[0]+"_bayestar_fits_gz_"+str(current_superevent_array[1])+".fits"
     print(superevent_fits)
-    print("50% area: ", get_area(file_location, current_superevent_array, 50))
     print("90% area: ", get_area(file_location, current_superevent_array, 90))
+    print("50% area: ", get_area(file_location, current_superevent_array, 50))
     print("50% area distance from coordinate zero: ", get_area_distance(file_location, current_superevent_array, [0,0], 50, order=8))
     print("90% area distance from coordinate zero: ", get_area_distance(file_location, current_superevent_array, [0,0], 90, order=8))
     cf_list=get_all_null_coords(current_superevent_array[2], which_detectors(current_superevent_array[3]))
@@ -30,3 +34,4 @@ for i in range(len(O4a_May_events_1)):
     print("angular separations from 50% area: ", res_sep_min_50.tolist())
     print("Event name: ", current_superevent_array[0])
     print("RES.OUT")
+    iterator0 = iterator0+1
